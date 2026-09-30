@@ -1,52 +1,40 @@
 {
-  "updatedAt": null,
+  "updatedAt": "2026-09-30",
   "brands": {
     "zes": {
       "tariffs": [
         {
           "type": "AC",
           "label": "AC",
-          "pricePerKwh": null
+          "pricePerKwh": 10.99
         },
         {
           "type": "DC",
-          "label": "DC ≤ 100 kW",
-          "maxKw": 100,
-          "pricePerKwh": null
-        },
-        {
-          "type": "DC",
-          "label": "DC > 100 kW",
-          "minKw": 100,
-          "pricePerKwh": null
+          "label": "DC",
+          "pricePerKwh": null,
+          "priceMin": 12.99,
+          "priceMax": 16.49
         }
       ],
-      "sourceUrl": "",
-      "checkedAt": null,
-      "note": ""
+      "sourceUrl": "https://zes.net/tr/fiyatlandirma",
+      "checkedAt": "2026-09-30",
+      "note": "Sayfada DC-1 12,99 ve DC-2 16,49 ₺/kWh; kW karşılığı tanımlı değil. \"Fiyatlar lokasyon bazlı değişebilir.\""
     },
     "trugo": {
       "tariffs": [
         {
           "type": "AC",
           "label": "AC",
-          "pricePerKwh": null
+          "pricePerKwh": 9.95
         },
         {
           "type": "DC",
-          "label": "DC ≤ 100 kW",
-          "maxKw": 100,
-          "pricePerKwh": null
-        },
-        {
-          "type": "DC",
-          "label": "DC > 100 kW",
-          "minKw": 100,
-          "pricePerKwh": null
+          "label": "DC",
+          "pricePerKwh": 14.98
         }
       ],
-      "sourceUrl": "",
-      "checkedAt": null,
+      "sourceUrl": "https://www.trugo.com.tr/price",
+      "checkedAt": "2026-09-30",
       "note": ""
     },
     "esarj": {
@@ -54,119 +42,90 @@
         {
           "type": "AC",
           "label": "AC",
-          "pricePerKwh": null
+          "pricePerKwh": 9.9
         },
         {
           "type": "DC",
-          "label": "DC ≤ 100 kW",
-          "maxKw": 100,
-          "pricePerKwh": null
-        },
-        {
-          "type": "DC",
-          "label": "DC > 100 kW",
-          "minKw": 100,
-          "pricePerKwh": null
+          "label": "DC",
+          "pricePerKwh": null,
+          "priceMin": 9.9,
+          "priceMax": 14.9
         }
       ],
-      "sourceUrl": "",
-      "checkedAt": null,
-      "note": ""
+      "sourceUrl": "https://esarj.com/fiyatlandirma",
+      "checkedAt": "2026-09-30",
+      "note": "AC tüm lokasyonlar; DC lokasyona göre 9,90–14,90 ₺/kWh. KDV dahil."
     },
     "wat-mobilite": {
       "tariffs": [
         {
           "type": "AC",
           "label": "AC",
-          "pricePerKwh": null
+          "pricePerKwh": null,
+          "priceMin": 9.99,
+          "priceMax": 10.99
         },
         {
           "type": "DC",
-          "label": "DC ≤ 100 kW",
-          "maxKw": 100,
-          "pricePerKwh": null
-        },
-        {
-          "type": "DC",
-          "label": "DC > 100 kW",
-          "minKw": 100,
-          "pricePerKwh": null
+          "label": "DC",
+          "pricePerKwh": null,
+          "priceMin": 10.99,
+          "priceMax": 14.49
         }
       ],
-      "sourceUrl": "",
-      "checkedAt": null,
-      "note": ""
+      "sourceUrl": "https://www.watmobilite.com/cozumler/kamusal-alanlar",
+      "checkedAt": "2026-09-30",
+      "note": "\"Lokasyonlardaki birim fiyatlar, belirlenen fiyat aralıklarına göre değişiklik göstermektedir.\" 26.06.2026'dan itibaren geçerli."
     },
     "otopriz": {
       "tariffs": [
         {
           "type": "AC",
           "label": "AC",
-          "pricePerKwh": null
+          "pricePerKwh": 9.9
         },
         {
           "type": "DC",
-          "label": "DC ≤ 100 kW",
-          "maxKw": 100,
-          "pricePerKwh": null
-        },
-        {
-          "type": "DC",
-          "label": "DC > 100 kW",
-          "minKw": 100,
-          "pricePerKwh": null
+          "label": "DC",
+          "pricePerKwh": 13.9
         }
       ],
-      "sourceUrl": "",
-      "checkedAt": null,
-      "note": ""
+      "sourceUrl": "https://otopriz.com.tr/uyelik-ve-tarifeler",
+      "checkedAt": "2026-09-30",
+      "note": "20.01.2026'dan itibaren geçerli tarife."
     },
     "voltrun": {
       "tariffs": [
         {
           "type": "AC",
           "label": "AC",
-          "pricePerKwh": null
+          "pricePerKwh": 10.9
         },
         {
           "type": "DC",
-          "label": "DC ≤ 100 kW",
-          "maxKw": 100,
-          "pricePerKwh": null
-        },
-        {
-          "type": "DC",
-          "label": "DC > 100 kW",
-          "minKw": 100,
-          "pricePerKwh": null
+          "label": "DC",
+          "pricePerKwh": 13.9
         }
       ],
-      "sourceUrl": "",
-      "checkedAt": null,
-      "note": ""
+      "sourceUrl": "https://www.voltrun.com/tr/tarifeler",
+      "checkedAt": "2026-09-30",
+      "note": "Şarj Hizmet Tarifesi – Güncel Birim Fiyat."
     },
     "astor": {
       "tariffs": [
         {
           "type": "AC",
           "label": "AC",
-          "pricePerKwh": null
+          "pricePerKwh": 9.49
         },
         {
           "type": "DC",
-          "label": "DC ≤ 100 kW",
-          "maxKw": 100,
-          "pricePerKwh": null
-        },
-        {
-          "type": "DC",
-          "label": "DC > 100 kW",
-          "minKw": 100,
-          "pricePerKwh": null
+          "label": "DC",
+          "pricePerKwh": 12.49
         }
       ],
-      "sourceUrl": "",
-      "checkedAt": null,
+      "sourceUrl": "https://www.astorsarj.com.tr/faq.html",
+      "checkedAt": "2026-09-30",
       "note": ""
     },
     "en-yakit": {
@@ -178,139 +137,101 @@
         },
         {
           "type": "DC",
-          "label": "DC ≤ 100 kW",
-          "maxKw": 100,
-          "pricePerKwh": null
-        },
-        {
-          "type": "DC",
-          "label": "DC > 100 kW",
-          "minKw": 100,
-          "pricePerKwh": null
+          "label": "DC",
+          "pricePerKwh": 14.9
         }
       ],
-      "sourceUrl": "",
-      "checkedAt": null,
-      "note": ""
+      "sourceUrl": "https://www.enyakit.com.tr/ucretlendirme",
+      "checkedAt": "2026-09-30",
+      "note": "Ağın tamamı DC; sitede AC fiyatı yok."
     },
     "oncharge": {
       "tariffs": [
         {
           "type": "AC",
           "label": "AC",
-          "pricePerKwh": null
+          "pricePerKwh": 9.99
         },
         {
           "type": "DC",
-          "label": "DC ≤ 100 kW",
-          "maxKw": 100,
-          "pricePerKwh": null
-        },
-        {
-          "type": "DC",
-          "label": "DC > 100 kW",
-          "minKw": 100,
-          "pricePerKwh": null
+          "label": "DC",
+          "pricePerKwh": 13.5
         }
       ],
-      "sourceUrl": "",
-      "checkedAt": null,
-      "note": ""
+      "sourceUrl": "https://www.oncharge.com.tr/fiyatlar",
+      "checkedAt": "2026-09-30",
+      "note": "KDV dahil. \"Lokasyon veya soket bazlı fiyatlar değişiklik gösterebilir.\""
     },
     "otojet": {
       "tariffs": [
         {
           "type": "AC",
           "label": "AC",
-          "pricePerKwh": null
+          "pricePerKwh": 10.99
         },
         {
           "type": "DC",
-          "label": "DC ≤ 100 kW",
-          "maxKw": 100,
-          "pricePerKwh": null
-        },
-        {
-          "type": "DC",
-          "label": "DC > 100 kW",
-          "minKw": 100,
-          "pricePerKwh": null
+          "label": "DC",
+          "pricePerKwh": null,
+          "priceMin": 12.4,
+          "priceMax": 15.49
         }
       ],
-      "sourceUrl": "",
-      "checkedAt": null,
-      "note": ""
+      "sourceUrl": "https://www.oto-jet.com.tr/fiyatlarimiz",
+      "checkedAt": "2026-09-30",
+      "note": "Sayfada \"DC Tarife\" 15,49 ve \"DC-2 Tarife\" 12,40 ₺/kWh; farkı tanımlı değil. KDV dahil."
     },
     "ovolt": {
       "tariffs": [
         {
           "type": "AC",
           "label": "AC",
-          "pricePerKwh": null
+          "pricePerKwh": 9.99
         },
         {
           "type": "DC",
-          "label": "DC ≤ 100 kW",
-          "maxKw": 100,
-          "pricePerKwh": null
-        },
-        {
-          "type": "DC",
-          "label": "DC > 100 kW",
-          "minKw": 100,
-          "pricePerKwh": null
+          "label": "DC",
+          "pricePerKwh": null,
+          "priceMin": 10.49,
+          "priceMax": 14.49
         }
       ],
-      "sourceUrl": "",
-      "checkedAt": null,
-      "note": ""
+      "sourceUrl": "https://ovolt.com.tr/tarifeler",
+      "checkedAt": "2026-09-30",
+      "note": "DC fiyatı lokasyon bazlı 10,49–14,49 ₺/kWh."
     },
     "5-sarj": {
       "tariffs": [
         {
           "type": "AC",
           "label": "AC",
-          "pricePerKwh": null
+          "pricePerKwh": 8.99
         },
         {
           "type": "DC",
-          "label": "DC ≤ 100 kW",
-          "maxKw": 100,
-          "pricePerKwh": null
-        },
-        {
-          "type": "DC",
-          "label": "DC > 100 kW",
-          "minKw": 100,
-          "pricePerKwh": null
+          "label": "DC",
+          "pricePerKwh": 15.9
         }
       ],
-      "sourceUrl": "",
-      "checkedAt": null,
-      "note": ""
+      "sourceUrl": "https://5sarj.com/tr/fiyatlandirma",
+      "checkedAt": "2026-09-30",
+      "note": "Sayfada AC \"≤22 kW\" olarak geçiyor. Fiyatlar soket bazında değişebilir; misafir kullanıcıdan 2000 TL provizyon alınır."
     },
     "sharz-net": {
       "tariffs": [
         {
           "type": "AC",
           "label": "AC",
-          "pricePerKwh": null
+          "pricePerKwh": 9.49
         },
         {
           "type": "DC",
-          "label": "DC ≤ 100 kW",
-          "maxKw": 100,
-          "pricePerKwh": null
-        },
-        {
-          "type": "DC",
-          "label": "DC > 100 kW",
-          "minKw": 100,
-          "pricePerKwh": null
+          "label": "DC",
+          "pricePerKwh": 11.99
         }
       ],
-      "sourceUrl": "",
-      "checkedAt": null,
+      "sourceUrl": "https://www.sharz.net/tarifeler",
+      "checkedAt": "2026-09-30",
       "note": ""
     },
     "d-charge": {
@@ -318,48 +239,34 @@
         {
           "type": "AC",
           "label": "AC",
-          "pricePerKwh": null
+          "pricePerKwh": 10.9
         },
         {
           "type": "DC",
-          "label": "DC ≤ 100 kW",
-          "maxKw": 100,
-          "pricePerKwh": null
-        },
-        {
-          "type": "DC",
-          "label": "DC > 100 kW",
-          "minKw": 100,
-          "pricePerKwh": null
+          "label": "DC",
+          "pricePerKwh": 14.9
         }
       ],
-      "sourceUrl": "",
-      "checkedAt": null,
-      "note": ""
+      "sourceUrl": "https://dcharge.com.tr/tarifeler",
+      "checkedAt": "2026-09-30",
+      "note": "KDV dahil. Fiyatlar lokasyon ve sokete göre farklılık gösterebilir."
     },
     "zeplin-car-rental": {
       "tariffs": [
         {
           "type": "AC",
           "label": "AC",
-          "pricePerKwh": null
+          "pricePerKwh": 8.5
         },
         {
           "type": "DC",
-          "label": "DC ≤ 100 kW",
-          "maxKw": 100,
-          "pricePerKwh": null
-        },
-        {
-          "type": "DC",
-          "label": "DC > 100 kW",
-          "minKw": 100,
-          "pricePerKwh": null
+          "label": "DC",
+          "pricePerKwh": 10.3
         }
       ],
-      "sourceUrl": "",
-      "checkedAt": null,
-      "note": ""
+      "sourceUrl": "https://www.zeplinenerji.com/",
+      "checkedAt": "2026-09-30",
+      "note": "Tüm AC / tüm DC soketler."
     }
   }
 }

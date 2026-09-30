@@ -98,16 +98,17 @@ Gerekçe (30.09.2026 kontrolü): `filippofilip95/car-logos-dataset` README ve `p
   "brands": {
     "zes": {
       "tariffs": [
-        { "type": "AC", "label": "AC", "pricePerKwh": null },
-        { "type": "DC", "label": "DC ≤ 100 kW", "maxKw": 100, "pricePerKwh": null },
-        { "type": "DC", "label": "DC > 100 kW", "minKw": 100, "pricePerKwh": null }
+        { "type": "AC", "label": "AC", "pricePerKwh": 10.99 },
+        { "type": "DC", "label": "DC", "pricePerKwh": null, "priceMin": 12.99, "priceMax": 16.49 }
       ],
       "sourceUrl": "https://…", "checkedAt": "2026-09-30", "note": ""
     }
   }
 }
 ```
-Fiyatı doğrulanmamış marka → `pricePerKwh: null` → uygulamada "Fiyat bilgisi yok". Uygulama her fiyatın altında "Kaynak: operatör sitesi · kontrol: 30.09.2026" gösterir.
+Marka başına iki satır: bir AC, bir DC (30.09.2026 kararı). Operatörler kW eşiği yayınlamadığı için `minKw` / `maxKw` yazılmaz; alanlar opsiyonel olarak desteklenir, operatör güç kademesi yayınlarsa kullanılır (eşleşme kuralı aşağıda).
+Kesin fiyat yoksa (kaynak aralık veriyor ya da kademesi tanımsız): `pricePerKwh: null` + opsiyonel `priceMin` / `priceMax`; kaynaktaki ifade `note`'a yazılır. Uygulama aralığı "12,99–16,49 ₺/kWh" olarak gösterir.
+Fiyatı hiç doğrulanmamış tarife (aralık da yok) → `pricePerKwh: null` → uygulamada "Fiyat bilgisi yok". Uygulama her fiyatın altında "Kaynak: operatör sitesi · kontrol: 30.09.2026" gösterir.
 
 ## Veri kuralları (veri hattı ve uygulama aynı kuralı uygular)
 - **Hız sınıfı:** `kw ≤ 22` normal; `22 < kw ≤ 100` hızlı; `kw > 100` ultra.
