@@ -153,21 +153,26 @@ def socket_standard(soket_turu):
 
 
 def socket_type(soket):
+    """(tip, çelişki_var_mı) döner. soketTipi ile soketTuru çelişirse
+    soketTuru önekine güvenilir."""
     tipi = clean_text(soket.get("soketTipi")).upper()
-    if tipi in ("AC", "DC"):
-        return tipi
     turu = clean_text(soket.get("soketTuru")).upper()
-    if turu.startswith("AC"):
-        return "AC"
-    if turu.startswith("DC"):
-        return "DC"
-    return None
+    from_turu = turu[:2] if turu[:3] in ("AC_", "DC_") else None
+    if from_turu:
+        return from_turu, tipi in ("AC", "DC") and tipi != from_turu
+    if tipi in ("AC", "DC"):
+        return tipi, False
+    return None, False
 
 
 # ---------------------------------------------------------------- markalar
 
 class BrandIndex(object):
-    """brands.json'daki slug + aliases üzerinden ham `marka` → slug."""
+    """brands.json'daki slug + aliases üzerinden ham `marka` → slug.
+
+    Aynı yazımı kullanan farklı operatörler `licenseNos`
+    (sarjAgiIsletmecisiLisansNo listesi) ile ayrılır.
+    """
 
     def __init__(self, brands):
         self._by_key = {}
@@ -175,18 +180,26 @@ class BrandIndex(object):
             slug = brand.get("slug")
             if not slug:
                 continue
+            licenses = frozenset(clean_text(no) for no in brand.get("licenseNos") or [])
             for alias in [slug, brand.get("name")] + list(brand.get("aliases") or []):
                 key = slugify(alias)
-                if key:
-                    self._by_key.setdefault(key, slug)
+                candidates = self._by_key.setdefault(key, []) if key else None
+                if candidates is not None and all(slug != other for other, _ in candidates):
+                    candidates.append((slug, licenses))
 
-    def resolve(self, raw_brand):
+    def resolve(self, raw_brand, license_no=None):
         """(slug, eşleşti_mi) döner. Eşleşmeyen marka otomatik slug alır."""
         key = slugify(raw_brand)
         if not key:
             return UNKNOWN_BRAND_SLUG, False
-        if key in self._by_key:
-            return self._by_key[key], True
+        candidates = self._by_key.get(key) or []
+        license_no = clean_text(license_no)
+        for slug, licenses in candidates:
+            if licenses and license_no in licenses:
+                return slug, True
+        for slug, licenses in candidates:
+            if not licenses:
+                return slug, True
         return key, False
 
 
@@ -201,12 +214,15 @@ def new_report():
         "dropped_no_id": 0,
         "dropped_bad_coords": 0,
         "dropped_outside_turkey": 0,
+        "dropped_no_sockets": 0,
         "duplicate_ids": {},
         "sockets": 0,
         "sockets_without_kw": 0,
         "sockets_unknown_type": 0,
+        "sockets_type_conflict": 0,
         "unknown_standards": {},
         "unmatched_brands": {},
+        "brand_operators": {},
     }
 
 
@@ -215,10 +231,12 @@ def build_sockets(raw_sockets, report):
     for soket in raw_sockets or []:
         if not isinstance(soket, dict):
             continue
-        kind = socket_type(soket)
+        kind, conflict = socket_type(soket)
         if kind is None:
             report["sockets_unknown_type"] += 1
             continue
+        if conflict:
+            report["sockets_type_conflict"] += 1
         standard, known = socket_standard(soket.get("soketTuru"))
         if not known:
             raw = clean_text(soket.get("soketTuru"))
@@ -227,6 +245,9 @@ def build_sockets(raw_sockets, report):
         report["sockets"] += 1
         if kw is None:
             report["sockets_without_kw"] += 1
+        # soketNo ("SKT/18029") V1'de yayınlanmıyor; ileride canlı doluluk için
+        # operatör verisini sokete bağlamanın anahtarı (PLAN.md). Açmak için:
+        #   "no": clean_text(soket.get("soketNo")),
         sockets.append({"type": kind, "standard": standard, "kw": kw})
     return sockets
 
@@ -240,14 +261,19 @@ def build_station(record, brand_index, report):
     """Tek EPDK kaydını yayın formatına çevirir.
 
     Çıktı alanları burada tek tek yazılır; `sarjIstasyonuIsletmecisi` (gerçek
-    kişi adı içerebilir, KVKK) hiç okunmaz.
+    kişi adı içerebilir, KVKK) hiç okunmaz. Soketi olmayan istasyon None döner.
     """
     sockets = build_sockets(record.get("soketler"), report)
+    if not sockets:
+        return None
     raw_brand = clean_text(record.get("marka"))
-    slug, matched = brand_index.resolve(raw_brand)
+    license_no = clean_text(record.get("sarjAgiIsletmecisiLisansNo"))
+    slug, matched = brand_index.resolve(raw_brand, license_no)
     if not matched:
         entry = report["unmatched_brands"].setdefault(raw_brand, {"slug": slug, "count": 0})
         entry["count"] += 1
+    operators = report["brand_operators"].setdefault(slug, {})
+    operators.setdefault(license_no, clean_text(record.get("sarjAgiIsletmecisiUnvan")))
     return {
         "id": clean_text(record.get("sarjIstasyonuNo")),
         "name": clean_text(record.get("sarjIstasyonuAdi")),
@@ -298,7 +324,11 @@ def transform(records, brand_index):
             # tekrarlanan id: ilk kayıt kalır
             report["duplicate_ids"][station_id] = report["duplicate_ids"].get(station_id, 0) + 1
             continue
-        by_id[station_id] = build_station(record, brand_index, report)
+        station = build_station(record, brand_index, report)
+        if station is None:
+            report["dropped_no_sockets"] += 1
+            continue
+        by_id[station_id] = station
     stations = [by_id[key] for key in sorted(by_id)]
     report["published"] = len(stations)
     return stations, report
@@ -313,8 +343,10 @@ def print_report(report, out=sys.stdout):
         "Atılan (id yok):         %d" % report["dropped_no_id"],
         "Atılan (koordinat bozuk): %d" % report["dropped_bad_coords"],
         "Atılan (Türkiye dışı):   %d" % report["dropped_outside_turkey"],
-        "Soket:                   %d (gücü boş: %d, tipi tanınmayan: %d)"
-        % (report["sockets"], report["sockets_without_kw"], report["sockets_unknown_type"]),
+        "Atılan (soketsiz):       %d" % report["dropped_no_sockets"],
+        "Soket:                   %d (gücü boş: %d, tipi tanınmayan: %d, tip/tür çelişkili: %d)"
+        % (report["sockets"], report["sockets_without_kw"], report["sockets_unknown_type"],
+           report["sockets_type_conflict"]),
     ]
     duplicates = report["duplicate_ids"]
     lines.append(
@@ -334,6 +366,12 @@ def print_report(report, out=sys.stdout):
             "  UYARI eşleşmeyen marka: %r → %s (%d istasyon)"
             % (raw, unmatched[raw]["slug"], unmatched[raw]["count"])
         )
+    shared = dict((slug, ops) for slug, ops in report["brand_operators"].items() if len(ops) > 1)
+    lines.append("Birden çok operatörlü slug: %d" % len(shared))
+    for slug in sorted(shared):
+        for license_no in sorted(shared[slug]):
+            lines.append("  UYARI aynı slug, farklı operatör: %s ← %s (%s)"
+                         % (slug, license_no, shared[slug][license_no]))
     out.write("\n".join(lines) + "\n")
 
 
@@ -459,7 +497,7 @@ def draft_brands(records, existing_brands):
         if not isinstance(record, dict) or not is_public(record.get("hizmetSekli")):
             continue
         raw = clean_text(record.get("marka"))
-        slug, _ = index.resolve(raw)
+        slug, _ = index.resolve(raw, record.get("sarjAgiIsletmecisiLisansNo"))
         counts[slug] += 1
         if raw:
             spellings.setdefault(slug, collections.Counter())[raw] += 1
@@ -503,6 +541,12 @@ def run_draft(records, public_dir, out):
         aliases = [b for b in brands if b["slug"] == slug][0]["aliases"]
         out.write("  %-28s %6d istasyon  yazımlar: %s\n" % (slug, counts[slug], aliases))
     out.write("prices.json iskeleti (ilk %d): %s\n" % (len(top), ", ".join(top)))
+    _, report = transform(records, BrandIndex(brands))
+    shared = dict((slug, ops) for slug, ops in report["brand_operators"].items() if len(ops) > 1)
+    out.write("Birden çok operatörlü slug (licenseNos ile ayırmayı düşün): %d\n" % len(shared))
+    for slug in sorted(shared):
+        for license_no in sorted(shared[slug]):
+            out.write("  %s ← %s (%s)\n" % (slug, license_no, shared[slug][license_no]))
 
 
 # ---------------------------------------------------------------- ana akış

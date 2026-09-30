@@ -123,24 +123,47 @@ class SocketTest(unittest.TestCase):
         self.assertEqual((station["acCount"], station["acMaxKw"]), (1, None))
         self.assertEqual(report["sockets_without_kw"], 2)
 
-    def test_no_sockets(self):
-        for value in ([], None):
-            stations, _ = run_transform([record("ŞRJ/1", soketler=value)])
-            self.assertEqual(stations[0]["sockets"], [])
-            self.assertEqual(stations[0]["acCount"], 0)
-            self.assertIsNone(stations[0]["dcMaxKw"])
+    def test_station_without_sockets_dropped(self):
+        unusable = [{"soketTipi": "", "soketTuru": "", "soketGucu": "11"}]
+        stations, report = run_transform([
+            record("ŞRJ/1", soketler=[]),
+            record("ŞRJ/2", soketler=None),
+            record("ŞRJ/3", soketler=unusable),
+            record("ŞRJ/4"),
+        ])
+        self.assertEqual([s["id"] for s in stations], ["ŞRJ/4"])
+        self.assertEqual(report["dropped_no_sockets"], 3)
+        self.assertEqual(list(report["brand_operators"]), ["zes"])
+
+    def test_type_conflict_trusts_soket_turu(self):
+        stations, report = run_transform([record("ŞRJ/1", soketler=[
+            {"soketTipi": "DC", "soketTuru": "AC_TYPE2", "soketGucu": "22"},
+            {"soketTipi": "AC", "soketTuru": "DC_CCS", "soketGucu": "120"},
+            {"soketTipi": "AC", "soketTuru": "AC_TYPE2", "soketGucu": "11"},
+        ])])
+        self.assertEqual([(s["type"], s["standard"]) for s in stations[0]["sockets"]],
+                         [("AC", "Type 2"), ("DC", "CCS"), ("AC", "Type 2")])
+        self.assertEqual((stations[0]["acCount"], stations[0]["acMaxKw"]), (2, 22))
+        self.assertEqual(report["sockets_type_conflict"], 2)
+
+    def test_soket_no_not_published(self):
+        stations, _ = run_transform([record("ŞRJ/1", soketler=[
+            {"soketNo": "SKT/1", "soketTipi": "AC", "soketTuru": "AC_TYPE2", "soketGucu": "22"}])])
+        self.assertEqual(set(stations[0]["sockets"][0]), {"type", "standard", "kw"})
 
     def test_unknown_standard_reported(self):
         stations, report = run_transform([record("ŞRJ/1", soketler=[
             {"soketTipi": "DC", "soketTuru": "DC_GBT", "soketGucu": "120"},
             {"soketTipi": "", "soketTuru": "AC_TYPE2", "soketGucu": "11"},
             {"soketTipi": "", "soketTuru": "", "soketGucu": "11"},
+            {"soketTipi": "AC", "soketTuru": "TESLA", "soketGucu": "11"},
         ])])
         self.assertEqual(stations[0]["sockets"], [
             {"type": "DC", "standard": "GBT", "kw": 120},
             {"type": "AC", "standard": "Type 2", "kw": 11},
+            {"type": "AC", "standard": "TESLA", "kw": 11},
         ])
-        self.assertEqual(report["unknown_standards"], {"DC_GBT": 1})
+        self.assertEqual(report["unknown_standards"], {"DC_GBT": 1, "TESLA": 1})
         self.assertEqual(report["sockets_unknown_type"], 1)
 
 
@@ -220,6 +243,46 @@ class BrandTest(unittest.TestCase):
             "Voltrun": {"slug": "voltrun", "count": 1},
             "": {"slug": "bilinmeyen", "count": 1},
         })
+
+    SPLIT = [
+        {"slug": "greenwatt", "name": "GREENWATT", "aliases": ["GREENWATT"], "licenseNos": ["ŞH/1"]},
+        {"slug": "greenwatt-gwesi", "name": "Greenwatt", "aliases": ["Greenwatt"], "licenseNos": ["ŞH/2"]},
+    ]
+
+    def test_same_spelling_split_by_operator_license(self):
+        stations, report = run_transform([
+            record("ŞRJ/1", marka="GREENWATT", sarjAgiIsletmecisiLisansNo="ŞH/1"),
+            record("ŞRJ/2", marka="Greenwatt", sarjAgiIsletmecisiLisansNo="ŞH/2"),
+            record("ŞRJ/3", marka="GREENWATT", sarjAgiIsletmecisiLisansNo="ŞH/2"),
+            record("ŞRJ/4", marka="greenwatt", sarjAgiIsletmecisiLisansNo="ŞH/9"),
+        ], self.SPLIT)
+        self.assertEqual([s["brand"] for s in stations],
+                         ["greenwatt", "greenwatt-gwesi", "greenwatt-gwesi", "greenwatt"])
+        # lisansı tanınmayan üçüncü operatör eşleşmedi sayılır ve raporlanır
+        self.assertEqual(report["unmatched_brands"], {"greenwatt": {"slug": "greenwatt", "count": 1}})
+        out = io.StringIO()
+        bs.print_report(report, out)
+        self.assertIn("Birden çok operatörlü slug: 1", out.getvalue())
+        self.assertIn("UYARI aynı slug, farklı operatör: greenwatt ← ŞH/9", out.getvalue())
+
+    def test_multi_operator_slug_reported(self):
+        _, report = run_transform([
+            record("ŞRJ/1", marka="X", sarjAgiIsletmecisiLisansNo="ŞH/1", sarjAgiIsletmecisiUnvan="A A.Ş."),
+            record("ŞRJ/2", marka="x", sarjAgiIsletmecisiLisansNo="ŞH/2", sarjAgiIsletmecisiUnvan="B A.Ş."),
+            record("ŞRJ/3", marka="Y", sarjAgiIsletmecisiLisansNo="ŞH/2", sarjAgiIsletmecisiUnvan="B A.Ş."),
+        ])
+        self.assertEqual(report["brand_operators"]["x"], {"ŞH/1": "A A.Ş.", "ŞH/2": "B A.Ş."})
+        self.assertEqual(report["brand_operators"]["y"], {"ŞH/2": "B A.Ş."})
+
+    def test_draft_respects_license_split(self):
+        records = [
+            record("ŞRJ/1", marka="GREENWATT", sarjAgiIsletmecisiLisansNo="ŞH/1"),
+            record("ŞRJ/2", marka="Greenwatt", sarjAgiIsletmecisiLisansNo="ŞH/2"),
+        ]
+        brands, counts = bs.draft_brands(records, self.SPLIT)
+        self.assertEqual([b["slug"] for b in brands], ["greenwatt", "greenwatt-gwesi"])
+        self.assertEqual(dict(counts), {"greenwatt": 1, "greenwatt-gwesi": 1})
+        self.assertEqual(brands[1]["licenseNos"], ["ŞH/2"])
 
     def test_draft_brands_groups_spellings_and_keeps_manual_edits(self):
         existing = [{"slug": "zes", "name": "ZES", "aliases": ["ZES"],
