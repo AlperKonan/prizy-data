@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """build_stations.py birim testleri. Gerçek EPDK isteği ATMAZ.
 
-Çalıştırma: python3 data/scripts/test_build_stations.py
+Çalıştırma: python3 scripts/test_build_stations.py
 """
 
 import datetime
@@ -476,6 +476,43 @@ class PublishTest(unittest.TestCase):
             self.assertEqual(first["stationsVersion"], second["stationsVersion"])
             third = self.publish(tmp, [record("ŞRJ/1"), record("ŞRJ/2", adres="Yeni adres")], now=later)
             self.assertNotEqual(second["stationsVersion"], third["stationsVersion"])
+
+    def test_unchanged_stations_file_not_rewritten_but_meta_updated(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            first = self.publish(tmp, [record("ŞRJ/1")])
+            path = os.path.join(tmp, "stations.json")
+            with open(path, "rb") as handle:
+                before = handle.read()
+            later = NOW + datetime.timedelta(days=1)
+            second = self.publish(tmp, [record("ŞRJ/1")], now=later)
+            with open(path, "rb") as handle:
+                self.assertEqual(handle.read(), before)
+            self.assertEqual(second["generatedAt"], "2026-10-02T01:17:00Z")
+            self.assertEqual(first["stationsVersion"], second["stationsVersion"])
+            third = self.publish(tmp, [record("ŞRJ/1", adres="Yeni adres")], now=later)
+            with open(path, "rb") as handle:
+                self.assertNotEqual(handle.read(), before)
+            self.assertNotEqual(third["stationsVersion"], second["stationsVersion"])
+
+    def test_meta_only_updates_versions_keeps_generated_at(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            with open(os.path.join(tmp, "prices.json"), "w", encoding="utf-8") as handle:
+                handle.write('{"updatedAt":null,"brands":{}}')
+            first = self.publish(tmp, [record("ŞRJ/1")])
+            with open(os.path.join(tmp, "prices.json"), "w", encoding="utf-8") as handle:
+                handle.write('{"updatedAt":"2026-10-05","brands":{"zes":{}}}')
+            code = bs.main(["--meta-only", "--public-dir", tmp],
+                           now=NOW + datetime.timedelta(days=4), out=io.StringIO())
+            self.assertEqual(code, 0)
+            meta = bs.read_json(os.path.join(tmp, "meta.json"))
+            self.assertEqual(meta["generatedAt"], first["generatedAt"])
+            self.assertEqual(meta["stationsVersion"], first["stationsVersion"])
+            self.assertNotEqual(meta["pricesVersion"], first["pricesVersion"])
+            self.assertEqual(meta["pricesUpdatedAt"], "2026-10-05")
+
+    def test_meta_only_without_stations_fails(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            self.assertEqual(bs.main(["--meta-only", "--public-dir", tmp], now=NOW, out=io.StringIO()), 1)
 
     def test_each_file_has_its_own_version(self):
         with tempfile.TemporaryDirectory() as tmp:

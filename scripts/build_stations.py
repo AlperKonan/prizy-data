@@ -463,9 +463,15 @@ def build_meta(public_dir, stations, generated_at):
     }
 
 
-def publish(public_dir, stations, now):
+def publish(public_dir, stations, now, previous_meta=None):
+    """stations.json yalnızca içerik değiştiyse yeniden yazılır (günlük gereksiz commit olmasın);
+    meta.json her başarılı çekimde güncellenir (hattın çalıştığının kanıtı)."""
     generated_at = now.strftime(DATE_FORMAT)
-    write_text(os.path.join(public_dir, "stations.json"), render_stations(stations, generated_at))
+    stations_path = os.path.join(public_dir, "stations.json")
+    unchanged = (os.path.exists(stations_path)
+                 and (previous_meta or {}).get("stationsVersion") == stations_version(stations))
+    if not unchanged:
+        write_text(stations_path, render_stations(stations, generated_at))
     meta = build_meta(public_dir, stations, generated_at)
     write_text(os.path.join(public_dir, "meta.json"), json.dumps(meta, ensure_ascii=False, indent=2) + "\n")
     return meta
@@ -549,6 +555,23 @@ def run_draft(records, public_dir, out):
             out.write("  %s ← %s (%s)\n" % (slug, license_no, shared[slug][license_no]))
 
 
+# ---------------------------------------------------------------- yalnızca meta
+
+def run_meta_only(public_dir, previous_meta, out):
+    """Elle düzenlenen dosyalardan sonra sürüm hash'lerini günceller.
+    generatedAt EPDK çekim zamanıdır; değiştirilmez."""
+    published = read_json(os.path.join(public_dir, "stations.json"))
+    if not isinstance(published, dict) or not isinstance(published.get("stations"), list):
+        out.write("HATA: yayında stations.json yok; önce EPDK çekimi gerekli.\n")
+        return 1
+    generated_at = (previous_meta or {}).get("generatedAt") or published.get("generatedAt")
+    meta = build_meta(public_dir, published["stations"], generated_at)
+    write_text(os.path.join(public_dir, "meta.json"), json.dumps(meta, ensure_ascii=False, indent=2) + "\n")
+    out.write("meta.json güncellendi (pricesVersion=%s, brandsVersion=%s, vehiclesVersion=%s)\n" % (
+        meta["pricesVersion"], meta["brandsVersion"], meta["vehiclesVersion"]))
+    return 0
+
+
 # ---------------------------------------------------------------- ana akış
 
 def parse_args(argv):
@@ -556,7 +579,10 @@ def parse_args(argv):
     source = parser.add_mutually_exclusive_group()
     source.add_argument("--from-raw", metavar="DOSYA", help="istek atmadan kaydedilmiş ham yanıttan üret")
     source.add_argument("--save-raw", metavar="DOSYA", help="gerçek istek at, ham yanıtı bu dosyaya kaydet")
-    parser.add_argument("--public-dir", default=DEFAULT_PUBLIC_DIR, help="yayın klasörü (varsayılan: data/public)")
+    source.add_argument("--meta-only", action="store_true",
+                        help="EPDK'ya gitmeden, yayındaki dosyalardan meta.json'u yeniden hesapla "
+                             "(prices/brands/vehicles elle düzenlendiğinde)")
+    parser.add_argument("--public-dir", default=DEFAULT_PUBLIC_DIR, help="yayın klasörü (varsayılan: public/)")
     parser.add_argument("--draft-brands", action="store_true",
                         help="stations/meta yazmadan brands.json taslağı ve prices.json iskeleti üret")
     parser.add_argument("--min-stations", type=int, default=MIN_STATIONS,
@@ -577,6 +603,9 @@ def main(argv=None, now=None, fetch=None, out=sys.stdout):
             out.write("HATA: yayındaki veri %d günden eski (ya da hiç yok).\n" % STALE_DAYS)
             return 1
         return 0
+
+    if args.meta_only:
+        return run_meta_only(public_dir, previous_meta, out)
 
     if args.from_raw:
         try:
@@ -617,7 +646,7 @@ def main(argv=None, now=None, fetch=None, out=sys.stdout):
         out.write("HATA: sağlamlık kontrolü geçmedi (%s). Yayınlanmadı.\n" % problem)
         return 1
 
-    meta = publish(public_dir, stations, now)
+    meta = publish(public_dir, stations, now, previous_meta)
     out.write("Yayınlandı: %d istasyon, stationsVersion=%s\n" % (meta["stationCount"], meta["stationsVersion"]))
     return 0
 
