@@ -1,4 +1,365 @@
 {
   "updatedAt": null,
-  "brands": {}
+  "brands": {
+    "zes": {
+      "tariffs": [
+        {
+          "type": "AC",
+          "label": "AC",
+          "pricePerKwh": null
+        },
+        {
+          "type": "DC",
+          "label": "DC ≤ 100 kW",
+          "maxKw": 100,
+          "pricePerKwh": null
+        },
+        {
+          "type": "DC",
+          "label": "DC > 100 kW",
+          "minKw": 100,
+          "pricePerKwh": null
+        }
+      ],
+      "sourceUrl": "",
+      "checkedAt": null,
+      "note": ""
+    },
+    "trugo": {
+      "tariffs": [
+        {
+          "type": "AC",
+          "label": "AC",
+          "pricePerKwh": null
+        },
+        {
+          "type": "DC",
+          "label": "DC ≤ 100 kW",
+          "maxKw": 100,
+          "pricePerKwh": null
+        },
+        {
+          "type": "DC",
+          "label": "DC > 100 kW",
+          "minKw": 100,
+          "pricePerKwh": null
+        }
+      ],
+      "sourceUrl": "",
+      "checkedAt": null,
+      "note": ""
+    },
+    "esarj": {
+      "tariffs": [
+        {
+          "type": "AC",
+          "label": "AC",
+          "pricePerKwh": null
+        },
+        {
+          "type": "DC",
+          "label": "DC ≤ 100 kW",
+          "maxKw": 100,
+          "pricePerKwh": null
+        },
+        {
+          "type": "DC",
+          "label": "DC > 100 kW",
+          "minKw": 100,
+          "pricePerKwh": null
+        }
+      ],
+      "sourceUrl": "",
+      "checkedAt": null,
+      "note": ""
+    },
+    "wat-mobilite": {
+      "tariffs": [
+        {
+          "type": "AC",
+          "label": "AC",
+          "pricePerKwh": null
+        },
+        {
+          "type": "DC",
+          "label": "DC ≤ 100 kW",
+          "maxKw": 100,
+          "pricePerKwh": null
+        },
+        {
+          "type": "DC",
+          "label": "DC > 100 kW",
+          "minKw": 100,
+          "pricePerKwh": null
+        }
+      ],
+      "sourceUrl": "",
+      "checkedAt": null,
+      "note": ""
+    },
+    "otopriz": {
+      "tariffs": [
+        {
+          "type": "AC",
+          "label": "AC",
+          "pricePerKwh": null
+        },
+        {
+          "type": "DC",
+          "label": "DC ≤ 100 kW",
+          "maxKw": 100,
+          "pricePerKwh": null
+        },
+        {
+          "type": "DC",
+          "label": "DC > 100 kW",
+          "minKw": 100,
+          "pricePerKwh": null
+        }
+      ],
+      "sourceUrl": "",
+      "checkedAt": null,
+      "note": ""
+    },
+    "voltrun": {
+      "tariffs": [
+        {
+          "type": "AC",
+          "label": "AC",
+          "pricePerKwh": null
+        },
+        {
+          "type": "DC",
+          "label": "DC ≤ 100 kW",
+          "maxKw": 100,
+          "pricePerKwh": null
+        },
+        {
+          "type": "DC",
+          "label": "DC > 100 kW",
+          "minKw": 100,
+          "pricePerKwh": null
+        }
+      ],
+      "sourceUrl": "",
+      "checkedAt": null,
+      "note": ""
+    },
+    "astor": {
+      "tariffs": [
+        {
+          "type": "AC",
+          "label": "AC",
+          "pricePerKwh": null
+        },
+        {
+          "type": "DC",
+          "label": "DC ≤ 100 kW",
+          "maxKw": 100,
+          "pricePerKwh": null
+        },
+        {
+          "type": "DC",
+          "label": "DC > 100 kW",
+          "minKw": 100,
+          "pricePerKwh": null
+        }
+      ],
+      "sourceUrl": "",
+      "checkedAt": null,
+      "note": ""
+    },
+    "en-yakit": {
+      "tariffs": [
+        {
+          "type": "AC",
+          "label": "AC",
+          "pricePerKwh": null
+        },
+        {
+          "type": "DC",
+          "label": "DC ≤ 100 kW",
+          "maxKw": 100,
+          "pricePerKwh": null
+        },
+        {
+          "type": "DC",
+          "label": "DC > 100 kW",
+          "minKw": 100,
+          "pricePerKwh": null
+        }
+      ],
+      "sourceUrl": "",
+      "checkedAt": null,
+      "note": ""
+    },
+    "oncharge": {
+      "tariffs": [
+        {
+          "type": "AC",
+          "label": "AC",
+          "pricePerKwh": null
+        },
+        {
+          "type": "DC",
+          "label": "DC ≤ 100 kW",
+          "maxKw": 100,
+          "pricePerKwh": null
+        },
+        {
+          "type": "DC",
+          "label": "DC > 100 kW",
+          "minKw": 100,
+          "pricePerKwh": null
+        }
+      ],
+      "sourceUrl": "",
+      "checkedAt": null,
+      "note": ""
+    },
+    "otojet": {
+      "tariffs": [
+        {
+          "type": "AC",
+          "label": "AC",
+          "pricePerKwh": null
+        },
+        {
+          "type": "DC",
+          "label": "DC ≤ 100 kW",
+          "maxKw": 100,
+          "pricePerKwh": null
+        },
+        {
+          "type": "DC",
+          "label": "DC > 100 kW",
+          "minKw": 100,
+          "pricePerKwh": null
+        }
+      ],
+      "sourceUrl": "",
+      "checkedAt": null,
+      "note": ""
+    },
+    "ovolt": {
+      "tariffs": [
+        {
+          "type": "AC",
+          "label": "AC",
+          "pricePerKwh": null
+        },
+        {
+          "type": "DC",
+          "label": "DC ≤ 100 kW",
+          "maxKw": 100,
+          "pricePerKwh": null
+        },
+        {
+          "type": "DC",
+          "label": "DC > 100 kW",
+          "minKw": 100,
+          "pricePerKwh": null
+        }
+      ],
+      "sourceUrl": "",
+      "checkedAt": null,
+      "note": ""
+    },
+    "5-sarj": {
+      "tariffs": [
+        {
+          "type": "AC",
+          "label": "AC",
+          "pricePerKwh": null
+        },
+        {
+          "type": "DC",
+          "label": "DC ≤ 100 kW",
+          "maxKw": 100,
+          "pricePerKwh": null
+        },
+        {
+          "type": "DC",
+          "label": "DC > 100 kW",
+          "minKw": 100,
+          "pricePerKwh": null
+        }
+      ],
+      "sourceUrl": "",
+      "checkedAt": null,
+      "note": ""
+    },
+    "sharz-net": {
+      "tariffs": [
+        {
+          "type": "AC",
+          "label": "AC",
+          "pricePerKwh": null
+        },
+        {
+          "type": "DC",
+          "label": "DC ≤ 100 kW",
+          "maxKw": 100,
+          "pricePerKwh": null
+        },
+        {
+          "type": "DC",
+          "label": "DC > 100 kW",
+          "minKw": 100,
+          "pricePerKwh": null
+        }
+      ],
+      "sourceUrl": "",
+      "checkedAt": null,
+      "note": ""
+    },
+    "d-charge": {
+      "tariffs": [
+        {
+          "type": "AC",
+          "label": "AC",
+          "pricePerKwh": null
+        },
+        {
+          "type": "DC",
+          "label": "DC ≤ 100 kW",
+          "maxKw": 100,
+          "pricePerKwh": null
+        },
+        {
+          "type": "DC",
+          "label": "DC > 100 kW",
+          "minKw": 100,
+          "pricePerKwh": null
+        }
+      ],
+      "sourceUrl": "",
+      "checkedAt": null,
+      "note": ""
+    },
+    "zeplin-car-rental": {
+      "tariffs": [
+        {
+          "type": "AC",
+          "label": "AC",
+          "pricePerKwh": null
+        },
+        {
+          "type": "DC",
+          "label": "DC ≤ 100 kW",
+          "maxKw": 100,
+          "pricePerKwh": null
+        },
+        {
+          "type": "DC",
+          "label": "DC > 100 kW",
+          "minKw": 100,
+          "pricePerKwh": null
+        }
+      ],
+      "sourceUrl": "",
+      "checkedAt": null,
+      "note": ""
+    }
+  }
 }
