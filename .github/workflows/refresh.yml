@@ -1,0 +1,79 @@
+name: Veri yenile ve yayınla
+
+on:
+  schedule:
+    - cron: "17 1 * * *"   # her gece 04:17 (TR)
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths: ["public/**"]   # prices/brands/vehicles elle düzenlenince
+
+permissions:
+  contents: write
+  pages: write
+  id-token: write
+
+concurrency:
+  group: refresh
+  cancel-in-progress: false
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Birim testleri
+        run: python scripts/test_build_stations.py
+
+      # EPDK kotası: filtresiz saatte 1 istek. Betik tek istek atar, yeniden denemez.
+      # 429'da veri 14 günden yeniyse çıkış 0 (iş geçer), daha eskiyse 1 (iş kırmızı olur).
+      - name: EPDK'dan çek ve üret
+        if: github.event_name != 'push'
+        run: python scripts/build_stations.py --save-raw raw/epdk_raw.json
+
+      - name: meta.json'u yeniden hesapla (elle düzenleme)
+        if: github.event_name == 'push'
+        run: python scripts/build_stations.py --meta-only
+
+      - name: Ham yanıtı sakla (90 gün)
+        if: always() && hashFiles('raw/epdk_raw.json') != ''
+        uses: actions/upload-artifact@v4
+        with:
+          name: epdk-raw-${{ github.run_id }}
+          path: raw/epdk_raw.json
+          retention-days: 90
+
+      - name: Değişiklikleri commit'le
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add public
+          if git diff --cached --quiet; then
+            echo "Değişiklik yok"
+          else
+            if [ "${{ github.event_name }}" = "push" ]; then msg="veri: meta.json güncellendi"; else msg="veri: EPDK günlük yenileme ($(date -u +%F))"; fi
+            git commit -m "$msg"
+            git push
+          fi
+
+      - uses: actions/configure-pages@v5
+
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: public
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - id: deployment
+        uses: actions/deploy-pages@v4
