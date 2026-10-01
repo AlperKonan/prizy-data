@@ -18,7 +18,8 @@
       ],
       "sourceUrl": "https://zes.net/tr/fiyatlandirma",
       "checkedAt": "2026-09-30",
-      "note": "Sayfada DC-1 12,99 ve DC-2 16,49 ₺/kWh; kW karşılığı tanımlı değil. \"Fiyatlar lokasyon bazlı değişebilir.\""
+      "note": "Fiyat lokasyona göre değişebilir.",
+      "internalNote": "Sayfada DC-1 12,99 ve DC-2 16,49 ₺/kWh; kW karşılığı tanımlı değil. \"Fiyatlar lokasyon bazlı değişebilir.\""
     },
     "trugo": {
       "tariffs": [
@@ -54,7 +55,8 @@
       ],
       "sourceUrl": "https://esarj.com/fiyatlandirma",
       "checkedAt": "2026-09-30",
-      "note": "AC tüm lokasyonlar; DC lokasyona göre 9,90–14,90 ₺/kWh. KDV dahil."
+      "note": "KDV dahil. DC fiyatı lokasyona göre değişir.",
+      "internalNote": "AC tüm lokasyonlar; DC lokasyona göre 9,90–14,90 ₺/kWh. KDV dahil."
     },
     "wat-mobilite": {
       "tariffs": [
@@ -75,7 +77,8 @@
       ],
       "sourceUrl": "https://www.watmobilite.com/cozumler/kamusal-alanlar",
       "checkedAt": "2026-09-30",
-      "note": "\"Lokasyonlardaki birim fiyatlar, belirlenen fiyat aralıklarına göre değişiklik göstermektedir.\" 26.06.2026'dan itibaren geçerli."
+      "note": "Fiyat lokasyona göre değişebilir.",
+      "internalNote": "\"Lokasyonlardaki birim fiyatlar, belirlenen fiyat aralıklarına göre değişiklik göstermektedir.\" 26.06.2026'dan itibaren geçerli."
     },
     "otopriz": {
       "tariffs": [
@@ -92,7 +95,8 @@
       ],
       "sourceUrl": "https://otopriz.com.tr/uyelik-ve-tarifeler",
       "checkedAt": "2026-09-30",
-      "note": "20.01.2026'dan itibaren geçerli tarife."
+      "note": "",
+      "internalNote": "20.01.2026'dan itibaren geçerli tarife."
     },
     "voltrun": {
       "tariffs": [
@@ -109,7 +113,8 @@
       ],
       "sourceUrl": "https://www.voltrun.com/tr/tarifeler",
       "checkedAt": "2026-09-30",
-      "note": "Şarj Hizmet Tarifesi – Güncel Birim Fiyat."
+      "note": "",
+      "internalNote": "Şarj Hizmet Tarifesi – Güncel Birim Fiyat."
     },
     "astor": {
       "tariffs": [
@@ -143,7 +148,8 @@
       ],
       "sourceUrl": "https://www.enyakit.com.tr/ucretlendirme",
       "checkedAt": "2026-09-30",
-      "note": "Ağın tamamı DC; sitede AC fiyatı yok."
+      "note": "AC fiyatı operatörün sitesinde yayımlanmıyor.",
+      "internalNote": "Ağın tamamı DC; sitede AC fiyatı yok."
     },
     "oncharge": {
       "tariffs": [
@@ -160,7 +166,8 @@
       ],
       "sourceUrl": "https://www.oncharge.com.tr/fiyatlar",
       "checkedAt": "2026-09-30",
-      "note": "KDV dahil. \"Lokasyon veya soket bazlı fiyatlar değişiklik gösterebilir.\""
+      "note": "KDV dahil. Fiyat lokasyona ve sokete göre değişebilir.",
+      "internalNote": "KDV dahil. \"Lokasyon veya soket bazlı fiyatlar değişiklik gösterebilir.\""
     },
     "otojet": {
       "tariffs": [
@@ -179,7 +186,8 @@
       ],
       "sourceUrl": "https://www.oto-jet.com.tr/fiyatlarimiz",
       "checkedAt": "2026-09-30",
-      "note": "Sayfada \"DC Tarife\" 15,49 ve \"DC-2 Tarife\" 12,40 ₺/kWh; farkı tanımlı değil. KDV dahil."
+      "note": "KDV dahil. DC fiyatı istasyona göre değişebilir.",
+      "internalNote": "Sayfada \"DC Tarife\" 15,49 ve \"DC-2 Tarife\" 12,40 ₺/kWh; farkı tanımlı değil. KDV dahil."
     },
     "ovolt": {
       "tariffs": [
@@ -198,7 +206,8 @@
       ],
       "sourceUrl": "https://ovolt.com.tr/tarifeler",
       "checkedAt": "2026-09-30",
-      "note": "DC fiyatı lokasyon bazlı 10,49–14,49 ₺/kWh."
+      "note": "DC fiyatı lokasyona göre değişir.",
+      "internalNote": "DC fiyatı lokasyon bazlı 10,49–14,49 ₺/kWh."
     },
     "5-sarj": {
       "tariffs": [
@@ -215,7 +224,8 @@
       ],
       "sourceUrl": "https://5sarj.com/tr/fiyatlandirma",
       "checkedAt": "2026-09-30",
-      "note": "Sayfada AC \"≤22 kW\" olarak geçiyor. Fiyatlar soket bazında değişebilir; misafir kullanıcıdan 2000 TL provizyon alınır."
+      "note": "Fiyat sokete göre değişebilir. Misafir kullanımda 2.000 ₺ provizyon alınır.",
+      "internalNote": "Sayfada AC \"≤22 kW\" olarak geçiyor. Fiyatlar soket bazında değişebilir; misafir kullanıcıdan 2000 TL provizyon alınır."
     },
     "sharz-net": {
       "tariffs": [
@@ -249,7 +259,8 @@
       ],
       "sourceUrl": "https://dcharge.com.tr/tarifeler",
       "checkedAt": "2026-09-30",
-      "note": "KDV dahil. Fiyatlar lokasyon ve sokete göre farklılık gösterebilir."
+      "note": "KDV dahil. Fiyat lokasyona ve sokete göre değişebilir.",
+      "internalNote": "KDV dahil. Fiyatlar lokasyon ve sokete göre farklılık gösterebilir."
     },
     "zeplin-car-rental": {
       "tariffs": [
@@ -266,7 +277,8 @@
       ],
       "sourceUrl": "https://www.zeplinenerji.com/",
       "checkedAt": "2026-09-30",
-      "note": "Tüm AC / tüm DC soketler."
+      "note": "",
+      "internalNote": "Tüm AC / tüm DC soketler."
     }
   }
 }
