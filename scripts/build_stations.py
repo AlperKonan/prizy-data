@@ -482,8 +482,7 @@ def publish(public_dir, stations, now, previous_meta=None):
 def empty_tariffs():
     return [
         {"type": "AC", "label": "AC", "pricePerKwh": None},
-        {"type": "DC", "label": "DC ≤ 100 kW", "maxKw": 100, "pricePerKwh": None},
-        {"type": "DC", "label": "DC > 100 kW", "minKw": 100, "pricePerKwh": None},
+        {"type": "DC", "label": "DC", "pricePerKwh": None},
     ]
 
 

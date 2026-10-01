@@ -312,8 +312,9 @@ class BrandTest(unittest.TestCase):
         self.assertEqual(sorted(prices["brands"]), ["voltrun", "zes"])
         self.assertEqual(prices["brands"]["zes"]["tariffs"][0]["pricePerKwh"], 9.99)
         tariffs = prices["brands"]["voltrun"]["tariffs"]
-        self.assertEqual(len(tariffs), 3)
+        self.assertEqual([t["type"] for t in tariffs], ["AC", "DC"])
         self.assertTrue(all(t["pricePerKwh"] is None for t in tariffs))
+        self.assertFalse(any("minKw" in t or "maxKw" in t for t in tariffs))
 
 
 class HealthTest(unittest.TestCase):
