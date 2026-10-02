@@ -22,9 +22,9 @@ jobs:
     runs-on: ubuntu-latest
     timeout-minutes: 15
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v7
 
-      - uses: actions/setup-python@v5
+      - uses: actions/setup-python@v7
         with:
           python-version: "3.12"
 
@@ -43,7 +43,7 @@ jobs:
 
       - name: Ham yanıtı sakla (90 gün)
         if: always() && hashFiles('raw/epdk_raw.json') != ''
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v7
         with:
           name: epdk-raw-${{ github.run_id }}
           path: raw/epdk_raw.json
@@ -59,12 +59,23 @@ jobs:
           else
             if [ "${{ github.event_name }}" = "push" ]; then msg="veri: meta.json güncellendi"; else msg="veri: EPDK günlük yenileme ($(date -u +%F))"; fi
             git commit -m "$msg"
-            git push
+          fi
+          # GitHub aynı push için bazen iki olay gönderir; gece çekimi ile elle
+          # düzenleme de yarışabilir. Uzak dala göre yeniden sıralanır: aynı
+          # değişiklik zaten oradaysa commit düşer ve push edilmez. Gerçek
+          # çakışmada rebase hata verir, iş kırmızı biter. Pages her durumda
+          # uzak daldaki en güncel public/ ile yayınlanır.
+          git fetch origin main
+          git rebase origin/main
+          if [ "$(git rev-list --count origin/main..HEAD)" -gt 0 ]; then
+            git push origin HEAD:main
+          else
+            echo "Uzak dal zaten güncel"
           fi
 
-      - uses: actions/configure-pages@v5
+      - uses: actions/configure-pages@v6
 
-      - uses: actions/upload-pages-artifact@v3
+      - uses: actions/upload-pages-artifact@v5
         with:
           path: public
 
@@ -76,4 +87,4 @@ jobs:
       url: ${{ steps.deployment.outputs.page_url }}
     steps:
       - id: deployment
-        uses: actions/deploy-pages@v4
+        uses: actions/deploy-pages@v5
