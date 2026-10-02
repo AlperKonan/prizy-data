@@ -1,9 +1,9 @@
 {
-  "generatedAt": "2026-10-01T07:10:37Z",
-  "stationsVersion": "b8338e17fe98",
+  "generatedAt": "2026-10-02T06:59:33Z",
+  "stationsVersion": "d27baec18fe4",
   "pricesVersion": "3e64a7286347",
   "brandsVersion": "611b48188dbe",
   "vehiclesVersion": "409fdc4cef62",
   "pricesUpdatedAt": "2026-09-30",
-  "stationCount": 13087
+  "stationCount": 13092
 }
