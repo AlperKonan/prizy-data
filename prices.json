@@ -1,0 +1,624 @@
+{
+  "updatedAt": "2026-10-08",
+  "brands": {
+    "zes": {
+      "tariffs": [
+        {
+          "type": "AC",
+          "label": "AC",
+          "pricePerKwh": 10.99
+        },
+        {
+          "type": "DC",
+          "label": "DC",
+          "pricePerKwh": null,
+          "priceMin": 12.99,
+          "priceMax": 16.49
+        }
+      ],
+      "note": "Fiyat lokasyona göre değişebilir."
+    },
+    "trugo": {
+      "tariffs": [
+        {
+          "type": "AC",
+          "label": "AC",
+          "pricePerKwh": 9.95
+        },
+        {
+          "type": "DC",
+          "label": "DC",
+          "pricePerKwh": null,
+          "priceMin": 12.0,
+          "priceMax": 14.98
+        }
+      ],
+      "note": ""
+    },
+    "esarj": {
+      "tariffs": [
+        {
+          "type": "AC",
+          "label": "AC",
+          "pricePerKwh": 9.9
+        },
+        {
+          "type": "DC",
+          "label": "DC",
+          "pricePerKwh": null,
+          "priceMin": 9.9,
+          "priceMax": 14.9
+        }
+      ],
+      "note": "KDV dahil. DC fiyatı lokasyona göre değişir."
+    },
+    "wat-mobilite": {
+      "tariffs": [
+        {
+          "type": "AC",
+          "label": "AC",
+          "pricePerKwh": null,
+          "priceMin": 9.99,
+          "priceMax": 10.99
+        },
+        {
+          "type": "DC",
+          "label": "DC",
+          "pricePerKwh": null,
+          "priceMin": 11.99,
+          "priceMax": 14.49
+        }
+      ],
+      "note": "Fiyat lokasyona göre değişebilir."
+    },
+    "otopriz": {
+      "tariffs": [
+        {
+          "type": "AC",
+          "label": "AC",
+          "pricePerKwh": null,
+          "priceMin": 7.92,
+          "priceMax": 9.9
+        },
+        {
+          "type": "DC",
+          "label": "DC",
+          "pricePerKwh": null,
+          "priceMin": 9.73,
+          "priceMax": 13.9
+        }
+      ],
+      "note": ""
+    },
+    "voltrun": {
+      "tariffs": [
+        {
+          "type": "AC",
+          "label": "AC",
+          "pricePerKwh": 10.9
+        },
+        {
+          "type": "DC",
+          "label": "DC",
+          "pricePerKwh": 13.9
+        }
+      ],
+      "note": ""
+    },
+    "astor": {
+      "tariffs": [
+        {
+          "type": "AC",
+          "label": "AC",
+          "pricePerKwh": 9.49
+        },
+        {
+          "type": "DC",
+          "label": "DC",
+          "pricePerKwh": 12.49
+        }
+      ],
+      "note": ""
+    },
+    "en-yakit": {
+      "tariffs": [
+        {
+          "type": "AC",
+          "label": "AC",
+          "pricePerKwh": null
+        },
+        {
+          "type": "DC",
+          "label": "DC",
+          "pricePerKwh": 14.9
+        }
+      ],
+      "note": "AC fiyatı operatörün sitesinde yayımlanmıyor."
+    },
+    "oncharge": {
+      "tariffs": [
+        {
+          "type": "AC",
+          "label": "AC",
+          "pricePerKwh": 9.99
+        },
+        {
+          "type": "DC",
+          "label": "DC",
+          "pricePerKwh": 13.5
+        }
+      ],
+      "note": "KDV dahil. Fiyat lokasyona ve sokete göre değişebilir."
+    },
+    "otojet": {
+      "tariffs": [
+        {
+          "type": "AC",
+          "label": "AC",
+          "pricePerKwh": 10.99
+        },
+        {
+          "type": "DC",
+          "label": "DC",
+          "pricePerKwh": 15.49
+        }
+      ],
+      "note": "KDV dahil. DC fiyatı istasyona göre değişebilir."
+    },
+    "ovolt": {
+      "tariffs": [
+        {
+          "type": "AC",
+          "label": "AC",
+          "pricePerKwh": 9.99
+        },
+        {
+          "type": "DC",
+          "label": "DC",
+          "pricePerKwh": null,
+          "priceMin": 10.49,
+          "priceMax": 14.49
+        }
+      ],
+      "note": "DC fiyatı lokasyona göre değişir."
+    },
+    "5-sarj": {
+      "tariffs": [
+        {
+          "type": "AC",
+          "label": "AC",
+          "pricePerKwh": 8.99
+        },
+        {
+          "type": "DC",
+          "label": "DC",
+          "pricePerKwh": 15.9
+        }
+      ],
+      "note": "Fiyat sokete göre değişebilir. Misafir kullanımda 2.000 ₺ provizyon alınır."
+    },
+    "sharz-net": {
+      "tariffs": [
+        {
+          "type": "AC",
+          "label": "AC",
+          "pricePerKwh": 9.49
+        },
+        {
+          "type": "DC",
+          "label": "DC",
+          "pricePerKwh": 11.99
+        }
+      ],
+      "note": ""
+    },
+    "d-charge": {
+      "tariffs": [
+        {
+          "type": "AC",
+          "label": "AC",
+          "pricePerKwh": 10.9
+        },
+        {
+          "type": "DC",
+          "label": "DC",
+          "pricePerKwh": 14.9
+        }
+      ],
+      "note": "KDV dahil. Fiyat lokasyona ve sokete göre değişebilir."
+    },
+    "zeplin-car-rental": {
+      "tariffs": [
+        {
+          "type": "AC",
+          "label": "AC",
+          "pricePerKwh": 8.5
+        },
+        {
+          "type": "DC",
+          "label": "DC",
+          "pricePerKwh": 10.3
+        }
+      ],
+      "note": ""
+    },
+    "k-sarj": {
+      "tariffs": [
+        {
+          "type": "AC",
+          "label": "AC",
+          "pricePerKwh": 9.15
+        },
+        {
+          "type": "DC",
+          "label": "DC",
+          "pricePerKwh": 11.65
+        }
+      ],
+      "note": ""
+    },
+    "otowatt": {
+      "tariffs": [
+        {
+          "type": "AC",
+          "label": "AC",
+          "pricePerKwh": null,
+          "priceMin": 9.49,
+          "priceMax": 10.99
+        },
+        {
+          "type": "DC",
+          "label": "DC",
+          "pricePerKwh": null,
+          "priceMin": 11.99,
+          "priceMax": 13.99
+        }
+      ],
+      "note": ""
+    },
+    "beefull": {
+      "tariffs": [
+        {
+          "type": "AC",
+          "label": "AC",
+          "pricePerKwh": 9.9
+        },
+        {
+          "type": "DC",
+          "label": "DC",
+          "pricePerKwh": 13.99
+        }
+      ],
+      "note": ""
+    },
+    "aksa-sarj": {
+      "tariffs": [
+        {
+          "type": "AC",
+          "label": "AC",
+          "pricePerKwh": null,
+          "priceMin": 9.9,
+          "priceMax": 10.9
+        },
+        {
+          "type": "DC",
+          "label": "DC",
+          "pricePerKwh": null,
+          "priceMin": 11.99,
+          "priceMax": 13.99
+        }
+      ],
+      "note": ""
+    },
+    "mks-sarj": {
+      "tariffs": [
+        {
+          "type": "AC",
+          "label": "AC",
+          "pricePerKwh": 9.49
+        },
+        {
+          "type": "DC",
+          "label": "DC",
+          "pricePerKwh": 13.99
+        }
+      ],
+      "note": ""
+    },
+    "charging-vehicles-cv": {
+      "tariffs": [
+        {
+          "type": "AC",
+          "label": "AC",
+          "pricePerKwh": 9.99
+        },
+        {
+          "type": "DC",
+          "label": "DC",
+          "pricePerKwh": 13.49
+        }
+      ],
+      "note": ""
+    },
+    "miggo": {
+      "tariffs": [
+        {
+          "type": "AC",
+          "label": "AC",
+          "pricePerKwh": 9.5
+        },
+        {
+          "type": "DC",
+          "label": "DC",
+          "pricePerKwh": 12.5
+        }
+      ],
+      "note": ""
+    },
+    "powersarj": {
+      "tariffs": [
+        {
+          "type": "AC",
+          "label": "AC",
+          "pricePerKwh": 11.19
+        },
+        {
+          "type": "DC",
+          "label": "DC",
+          "pricePerKwh": 13.99
+        }
+      ],
+      "note": ""
+    },
+    "neva-sarj": {
+      "tariffs": [
+        {
+          "type": "AC",
+          "label": "AC",
+          "pricePerKwh": 9.9
+        },
+        {
+          "type": "DC",
+          "label": "DC",
+          "pricePerKwh": 13.9
+        }
+      ],
+      "note": ""
+    },
+    "voltgo": {
+      "tariffs": [
+        {
+          "type": "AC",
+          "label": "AC",
+          "pricePerKwh": 9.5
+        },
+        {
+          "type": "DC",
+          "label": "DC",
+          "pricePerKwh": 12.4
+        }
+      ],
+      "note": ""
+    },
+    "varr-tm": {
+      "tariffs": [
+        {
+          "type": "AC",
+          "label": "AC",
+          "pricePerKwh": 9.9
+        },
+        {
+          "type": "DC",
+          "label": "DC",
+          "pricePerKwh": 13.9
+        }
+      ],
+      "note": ""
+    },
+    "green-science": {
+      "tariffs": [
+        {
+          "type": "AC",
+          "label": "AC",
+          "pricePerKwh": 8.9
+        }
+      ],
+      "note": ""
+    },
+    "solinved": {
+      "tariffs": [
+        {
+          "type": "AC",
+          "label": "AC",
+          "pricePerKwh": 9.99
+        },
+        {
+          "type": "DC",
+          "label": "DC",
+          "pricePerKwh": 13.99
+        }
+      ],
+      "note": ""
+    },
+    "i-sarj": {
+      "tariffs": [
+        {
+          "type": "AC",
+          "label": "AC",
+          "pricePerKwh": 9.98
+        },
+        {
+          "type": "DC",
+          "label": "DC",
+          "pricePerKwh": 13.49
+        }
+      ],
+      "note": ""
+    },
+    "sarjmatik": {
+      "tariffs": [
+        {
+          "type": "AC",
+          "label": "AC",
+          "pricePerKwh": 9.99
+        },
+        {
+          "type": "DC",
+          "label": "DC",
+          "pricePerKwh": 12.5
+        }
+      ],
+      "note": ""
+    },
+    "pirim-gida-ve-mesrubat-san-ve-tic-ltd-sti": {
+      "tariffs": [
+        {
+          "type": "AC",
+          "label": "AC",
+          "pricePerKwh": 9.49
+        },
+        {
+          "type": "DC",
+          "label": "DC",
+          "pricePerKwh": 12.49
+        }
+      ],
+      "note": ""
+    },
+    "adze": {
+      "tariffs": [
+        {
+          "type": "AC",
+          "label": "AC",
+          "pricePerKwh": 9.4
+        },
+        {
+          "type": "DC",
+          "label": "DC",
+          "pricePerKwh": 13.4
+        }
+      ],
+      "note": ""
+    },
+    "acropol": {
+      "tariffs": [
+        {
+          "type": "AC",
+          "label": "AC",
+          "pricePerKwh": 11.21
+        },
+        {
+          "type": "DC",
+          "label": "DC",
+          "pricePerKwh": 13.88
+        }
+      ],
+      "note": ""
+    },
+    "lumicle": {
+      "tariffs": [
+        {
+          "type": "AC",
+          "label": "AC",
+          "pricePerKwh": 9.99
+        },
+        {
+          "type": "DC",
+          "label": "DC",
+          "pricePerKwh": 13.49
+        }
+      ],
+      "note": ""
+    },
+    "ss-sarjstop-guvenli-sarj-noktasi": {
+      "tariffs": [
+        {
+          "type": "AC",
+          "label": "AC",
+          "pricePerKwh": 9.99
+        },
+        {
+          "type": "DC",
+          "label": "DC",
+          "pricePerKwh": 12.99
+        }
+      ],
+      "note": ""
+    },
+    "onizsarj": {
+      "tariffs": [
+        {
+          "type": "AC",
+          "label": "AC",
+          "pricePerKwh": 9.28
+        },
+        {
+          "type": "DC",
+          "label": "DC",
+          "pricePerKwh": 12.48
+        }
+      ],
+      "note": ""
+    },
+    "tora": {
+      "tariffs": [
+        {
+          "type": "AC",
+          "label": "AC",
+          "pricePerKwh": 9.99
+        },
+        {
+          "type": "DC",
+          "label": "DC",
+          "pricePerKwh": 13.49
+        }
+      ],
+      "note": ""
+    },
+    "e-power": {
+      "tariffs": [
+        {
+          "type": "AC",
+          "label": "AC",
+          "pricePerKwh": 8.99
+        },
+        {
+          "type": "DC",
+          "label": "DC",
+          "pricePerKwh": 11.99
+        }
+      ],
+      "note": ""
+    },
+    "mycharge": {
+      "tariffs": [
+        {
+          "type": "AC",
+          "label": "AC",
+          "pricePerKwh": 9.81
+        },
+        {
+          "type": "DC",
+          "label": "DC",
+          "pricePerKwh": 11.99
+        }
+      ],
+      "note": ""
+    },
+    "efish": {
+      "tariffs": [
+        {
+          "type": "AC",
+          "label": "AC",
+          "pricePerKwh": 10.49
+        },
+        {
+          "type": "DC",
+          "label": "DC",
+          "pricePerKwh": 14.99
+        }
+      ],
+      "note": ""
+    }
+  }
+}
